@@ -1,0 +1,22 @@
+<p>RESULTS</p>
+<div *ngIf="metadata === null; else dataLoaded" class="loading-spinner">
+  <mat-progress-spinner mode="indeterminate" diameter="50" color="#FF0028"></mat-progress-spinner>
+</div>
+<ng-template #dataLoaded>
+<div *ngIf="brand !== null || colors.length > 0 || barcode !== null" class="table-div">
+  <table mat-table [dataSource]="resultsData" class="mat-elevation-z8 table-color">
+    <ng-container matColumnDef="variable">
+      <td mat-cell *matCellDef="let element" class="td-variable">{{ element.name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="result">
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.name === 'Color'">
+          <div *ngFor="let colorItem of element.result" class="color-box" [style.background]="colorItem"></div>
+        </ng-container>
+        <span *ngIf="element.name !== 'Color'">{{ element.result }}</span>
+      </td>
+    </ng-container>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+</ng-template>

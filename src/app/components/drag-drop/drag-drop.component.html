@@ -1,0 +1,25 @@
+<div class="drag-drop-area" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (click)="fileInput.click()">
+  <input type="file" name="file" (change)="onFileSelected($event)" accept="image/*" #fileInput style="display: none" />
+  <div class="image-container">
+    <img *ngIf="image" [src]="image" alt="Uploaded Image" class="dragged-image" />
+  </div>
+  <p *ngIf="!image" class="upload-placeholder">Drag & Drop an image here or click here to upload</p>
+</div>
+<div class="upload-button">
+  @if(buttonText=="Analyze"){
+    <button mat-raised-button color="warn" (click)="saveImage()" [disabled]="!image">{{buttonText}}</button>
+  }
+  @else if(buttonText=="Analyze Another"){
+    <button mat-raised-button color="warn" (click)="reload()" [disabled]="!image">{{buttonText}}</button>
+  }
+
+  <!-- 
+  @if (image) {
+  <button mat-raised-button color="warn" (click)="saveImage()">{{buttonText}}</button>
+  } @else if (!image) {
+  <button mat-raised-button color="warn" disabled="true" (click)="saveImage()">Upload Now</button>
+  } -->
+</div>
+@if(showResults==true){
+<app-results></app-results>
+}
